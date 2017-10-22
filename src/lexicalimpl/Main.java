@@ -9,6 +9,10 @@ public class Main {
         InputProcess input=new ConsoleInput();
         LexicalAnalyzer lexAnalyze=new LexicalAnalyzer();
         TokenList tokenList=lexAnalyze.lexicalAnalyzer(input.readInput());
-        tokenList.printAll();
+        if(tokenList!=null) {
+            tokenList.printAll();
+        }else {
+            System.out.println("ERROR!");
+        }
     }
 }

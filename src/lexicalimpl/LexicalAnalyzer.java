@@ -12,7 +12,7 @@ public class LexicalAnalyzer implements Analyzer{
     private TokenList tokenList;
     private TransferTable transferTable;
 
-    public LexicalAnalyzer(){
+    LexicalAnalyzer(){
         tokenList=new TokenList();
         transferTable=new TransferTable();
     }
@@ -23,16 +23,32 @@ public class LexicalAnalyzer implements Analyzer{
         int loc=1;
         for(String input:inputs){
             int state=0;
-            String litrName="";
+            StringBuilder litrName= new StringBuilder();
             TokenType tokenType=TokenType.NOTYPE;
             for(int i=0;i<input.length();i++){
                 char c=input.charAt(i);
+                litrName.append(c);
                 int tempState=transferTable.nextState(state,c);
-                if(tempState==-2){
-                    litrName=litrName+c;
-                    tokenType=TokenType.values()[state];
-                    Token token=new Token(tokenType,loc,litrName);
+                if(tempState==-2||tempState==-1){
+                    if(tempState==-2) {
+                        if(state==0) {
+                            break;//换行，该行结束
+                        }
+                        tokenType = TokenType.values()[state-1];
+                        litrName = new StringBuilder(litrName.substring(0, litrName.length() - 1));//多加了一个字符
+                    }
+                    Token token=new Token(tokenType,loc, litrName.toString());
                     tokenList.add(token);
+
+                    loc++;
+                    state=0;
+                    litrName = new StringBuilder();
+                    tokenType=TokenType.NOTYPE;
+                    if(tempState!=-1) {
+                        i--;
+                    }
+                } else {
+                    state=tempState;
                 }
             }
         }

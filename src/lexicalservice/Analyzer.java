@@ -1,6 +1,5 @@
 package lexicalservice;
 
-import lexicaldata.Token;
 import lexicaldata.TokenList;
 
 import java.util.List;

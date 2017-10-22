@@ -14,12 +14,10 @@ public class ConsoleInput implements InputProcess {
     @Override
     public List<String> readInput() {
         BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
-        String line=null;
         List<String> inputs=new ArrayList<>();
         try {
-            while ((line = br.readLine()) != null) {
-                inputs.add(line);
-            }
+            inputs.add(br.readLine()+"\n");
+            br.close();
         }catch (IOException ioe){
             ioe.printStackTrace();
         }
