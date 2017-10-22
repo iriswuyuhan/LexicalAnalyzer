@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args){
-        InputProcess input=new ConsoleInput();
+        InputProcess input=new FileInput();
         LexicalAnalyzer lexAnalyze=new LexicalAnalyzer();
         TokenList tokenList=lexAnalyze.lexicalAnalyzer(input.readInput());
         if(tokenList!=null) {

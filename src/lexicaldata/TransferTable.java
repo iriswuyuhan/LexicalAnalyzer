@@ -7,18 +7,20 @@ import java.io.IOException;
 
 public class TransferTable {
     private int[][] table;
-    private final int ROW=7;
-    private final int COLUMN=5;
+    private final int ROW=9;
+    private final int COLUMN=7;
 
     public TransferTable(){
         this.table=new int[][]{
-                {1,2,6,4,5},
-                {1,1,-2,-2,-2},
-                {-2,2,-2,-2,-2},
-                {-2,-2,-2,-2,-2},
-                {-2,-2,-2,-2,-2},
-                {-2,-2,-2,-2,-2},
-                {6,6,3,6,6}
+                {1,2,6,4,5,6,7},
+                {1,1,-2,-2,-2,-2,-2},
+                {-2,2,-2,-2,-2,-2,-2},
+                {-2,-2,-2,-2,-2,-2,-2},
+                {-2,-2,-2,-2,-2,-2,-2},
+                {-2,-2,-2,-2,-2,-2,-2},
+                {-2,2,-2,-2,-2,-2,-2},
+                {-2,-2,-2,-2,-2,-2,-2},
+                {8,8,3,8,8,8,8}
         };
     }
 
@@ -31,13 +33,10 @@ public class TransferTable {
                 line=br.readLine();
                 String[] str=line.split("\t");
                 for(int j=0;j<COLUMN;j++){
-                    System.out.println(str[j]);
                     table[i][j]=Integer.parseInt(str[j]);
                 }
             }
-        }catch (FileNotFoundException fnfe){
-            fnfe.printStackTrace();
-        }catch (IOException ioe){
+        } catch (IOException ioe){
             ioe.printStackTrace();
         }
     }
@@ -54,8 +53,10 @@ public class TransferTable {
             nextChange=3;
         } else if(isCompute(c)){
             nextChange=4;
-        } else if(isWhiteSpace(c)){
-            return curState;
+        } else if(c=='('){
+            nextChange=5;
+        } else if(c==')'){
+            nextChange=6;
         } else if(isNewLine(c)){
             return -2;
         } else {
@@ -74,10 +75,6 @@ public class TransferTable {
 
     private boolean isCompute(char c){
         return (c=='+'||c=='-'||c=='*'||c=='/');
-    }
-
-    private boolean isWhiteSpace(char c){
-        return (c=='\t'||c==' ');//换行符是语句结束的标志
     }
 
     private boolean isNewLine(char c){
