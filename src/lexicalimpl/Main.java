@@ -1,11 +1,12 @@
 package lexicalimpl;
 
-import lexicaldata.Token;
 import lexicaldata.TokenList;
 import lexicalservice.InputProcess;
 
+import java.io.IOException;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         InputProcess input=new ConsoleInput();
         LexicalAnalyzer lexAnalyze=new LexicalAnalyzer();
         TokenList tokenList=lexAnalyze.lexicalAnalyzer(input.readInput());

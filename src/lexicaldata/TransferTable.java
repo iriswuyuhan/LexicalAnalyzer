@@ -1,7 +1,14 @@
 package lexicaldata;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class TransferTable {
     private int[][] table;
+    private final int ROW=7;
+    private final int COLUMN=5;
 
     public TransferTable(){
         this.table=new int[][]{
@@ -16,7 +23,23 @@ public class TransferTable {
     }
 
     public TransferTable(String path){
-
+        table=new int[ROW][COLUMN];
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            String line=null;
+            for(int i=0;i<ROW;i++){
+                line=br.readLine();
+                String[] str=line.split("\t");
+                for(int j=0;j<COLUMN;j++){
+                    System.out.println(str[j]);
+                    table[i][j]=Integer.parseInt(str[j]);
+                }
+            }
+        }catch (FileNotFoundException fnfe){
+            fnfe.printStackTrace();
+        }catch (IOException ioe){
+            ioe.printStackTrace();
+        }
     }
 
     public int nextState(int curState,char c){

@@ -6,6 +6,7 @@ import lexicaldata.TokenType;
 import lexicaldata.TransferTable;
 import lexicalservice.Analyzer;
 
+import java.io.IOException;
 import java.util.List;
 
 public class LexicalAnalyzer implements Analyzer{
@@ -14,7 +15,7 @@ public class LexicalAnalyzer implements Analyzer{
 
     LexicalAnalyzer(){
         tokenList=new TokenList();
-        transferTable=new TransferTable();
+        transferTable=new TransferTable("./resource/transfertable.txt");
     }
 
     //暂时只能分析赋值语句
